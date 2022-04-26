@@ -4,7 +4,10 @@ import { url, port, entryPoint } from './server'
 const URL = `http://${url}:${port}/${entryPoint}`
 
 const resolvers = {
-  Query: {},
+  Query: {
+    commentsByImageId: (_, { imageID }) =>
+      generalRequest(`${URL}/${imageID}`, 'GET'),
+  },
   Mutation: {},
 }
 
