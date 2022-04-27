@@ -15,5 +15,5 @@ export const commentQueries = `
 export const commentMutations = `
   createComment(imageID: String!, message: String!): Comment!
   updateComment(idc: String!, newMessage: String!): Comment!
-  deleteComment(idc: String)
+  deleteComment(idc: String): Int
 `
