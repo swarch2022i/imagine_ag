@@ -9,7 +9,7 @@ export const commentTypeDef = `
   }`
 
 export const commentQueries = `
-  commentsByImageId(imageID: String!): Comment!
+  commentsByImageId(imageID: String): Comment
 `
 
 export const commentMutations = `

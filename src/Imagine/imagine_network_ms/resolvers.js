@@ -6,7 +6,7 @@ const URL = `http://${url}:${port}/${entryPoint}`
 const resolvers = {
   Query: {
     commentsByImageId: (_, { imageID }) =>
-      generalRequest(`${URL}/api/comments?imageID=${imageID}`, 'GET'),
+      generalRequest(`${URL}?imageID=${imageID}`, 'GET'),
   },
   Mutation: {
     createComment: (_, { imageID, message }) =>
