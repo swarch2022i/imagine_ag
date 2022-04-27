@@ -8,7 +8,17 @@ const resolvers = {
     commentsByImageId: (_, { imageID }) =>
       generalRequest(`${URL}/api/comments?imageID=${imageID}`, 'GET'),
   },
-  Mutation: {},
+  Mutation: {
+    createComment: (_, { imageID, message }) =>
+      generalRequest(`${URL}/api/comments`, 'POST', { imageID, message }),
+    updateComment: (_, { idc, newMessage }) =>
+      generalRequest(
+        `${URL}/api/comments/${idc}?newMessage=${newMessage}`,
+        'PUT',
+      ),
+    deleteComment: (_, { idc }) =>
+      generalRequest(`${URL}/api/comments/${idc}`, 'DELETE'),
+  },
 }
 
 export default resolvers

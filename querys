@@ -1,5 +1,5 @@
-{
-  commentsByImageId(imageID: 123) {
+query{
+  commentsByImageId(imageID: "123") {
     imageID
     message
   }
