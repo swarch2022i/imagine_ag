@@ -1,7 +1,13 @@
 export const commentTypeDef = `
   type Comment{
-    imageID: String!
-    message: String!
+    imageID: String
+    message: String
+  }
+  type Res{
+    ok: Boolean
+    comments: [Comment]
+    comment : Comment,
+    msg: String
   }
   input commentInput{
     idc: String!
@@ -9,11 +15,11 @@ export const commentTypeDef = `
   }`
 
 export const commentQueries = `
-  commentsByImageId(imageID: String!): Comment!
+  commentsByImageId(imageID: String!): Res!
 `
 
 export const commentMutations = `
-  createComment(imageID: String!, message: String!): Comment!
-  updateComment(idc: String!, newMessage: String!): Comment!
-  deleteComment(idc: String): Int
+  createComment(imageID: String!, message: String!): Res!
+  updateComment(idc: String!, newMessage: String!): Res!
+  deleteComment(idc: String!): Res!
 `

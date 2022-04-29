@@ -6,18 +6,14 @@ const URL = `http://${url}:${port}/${entryPoint}`
 const resolvers = {
   Query: {
     commentsByImageId: (_, { imageID }) =>
-      generalRequest(`${URL}/api/comments?imageID=${imageID}`, 'GET'),
+      generalRequest(`${URL}?imageID=${imageID}`, 'GET'),
   },
   Mutation: {
     createComment: (_, { imageID, message }) =>
-      generalRequest(`${URL}/api/comments`, 'POST', { imageID, message }),
+      generalRequest(`${URL}`, 'POST', { imageID, message }),
     updateComment: (_, { idc, newMessage }) =>
-      generalRequest(
-        `${URL}/api/comments/${idc}?newMessage=${newMessage}`,
-        'PUT',
-      ),
-    deleteComment: (_, { idc }) =>
-      generalRequest(`${URL}/api/comments/${idc}`, 'DELETE'),
+      generalRequest(`${URL}/${idc}?newMessage=${newMessage}`, 'PUT'),
+    deleteComment: (_, { idc }) => generalRequest(`${URL}/${idc}`, 'DELETE'),
   },
 }
 
