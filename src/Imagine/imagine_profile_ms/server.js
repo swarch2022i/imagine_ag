@@ -1,3 +1,3 @@
 export const url = 'host.docker.internal'
-export const port = ''
-export const entryPoint = ''
+export const port = '8080'
+export const entryPoint = 'api/Perfiles'
