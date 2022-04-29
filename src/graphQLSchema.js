@@ -40,9 +40,9 @@ const mergedTypeDefs = mergeSchemas(
 // Generate the schema object from your types definition. -- lomismo la enfermedad del lomo :v
 export default makeExecutableSchema({
   typeDefs: mergedTypeDefs,
-  resolvers: merge(
+  resolvers: merge([
     { JSON: GraphQLJSON }, // allows scalar JSON
     categoryResolvers,
     networkResolvers,
-  ),
+  ]),
 })
