@@ -11,7 +11,12 @@ import {
   commentQueries,
   commentTypeDef,
   commentMutations,
-} from './Imagine/imagine_network_ms/typeDefs'
+} from './Imagine/imagine_network_ms/comments/typeDefs'
+import {
+  voteQueries,
+  voteTypeDef,
+  voteMutations,
+} from './Imagine/imagine_network_ms/votes/typeDefs'
 
 // import {} from './Imagine/imagine_profile_ms/typeDefs';
 
@@ -25,16 +30,17 @@ import {
 // import authResolvers from './Imagine/imagine_auth_ms/resolvers';
 // import collectionResolvers from './Imagine/imagine_collection_ms/resolvers';
 // import imageResolvers from './Imagine/imagine_image_ms/resolvers';
-import networkResolvers from './Imagine/imagine_network_ms/resolvers'
+import networkResolvers from './Imagine/imagine_network_ms/comments/resolvers'
+import voteResolvers from './Imagine/imagine_network_ms/votes/resolvers'
 // import profileResolvers from './Imagine/imagine_profile_ms/resolvers';
 
 import categoryResolvers from './Imagine/example/resolvers'
 
 // merge the typeDefs -- esto nos toca con cada typeDefs
 const mergedTypeDefs = mergeSchemas(
-  ['scalar JSON', categoryTypeDef, commentTypeDef],
-  [commentQueries, categoryQueries],
-  [commentMutations, categoryMutations],
+  ['scalar JSON', categoryTypeDef, commentTypeDef, voteTypeDef],
+  [commentQueries, voteQueries, categoryQueries],
+  [commentMutations, voteMutations, categoryMutations],
 )
 
 // Generate the schema object from your types definition. -- lomismo la enfermedad del lomo :v
@@ -44,5 +50,6 @@ export default makeExecutableSchema({
     { JSON: GraphQLJSON }, // allows scalar JSON
     categoryResolvers,
     networkResolvers,
+    voteResolvers,
   ]),
 })
