@@ -14,7 +14,7 @@ import {
   categoryMutations,
   categoryQueries,
   categoryTypeDef,
-} from './swarch2022i/example/typeDefs'
+} from './Imagine/example/typeDefs'
 
 //como debemos importar los resolvers
 // import authResolvers from './swarch2022i/imagine_auth_ms/resolvers';
@@ -23,20 +23,17 @@ import {
 // import networkResolvers from './swarch2022i/imagine_network_ms/resolvers';
 // import profileResolvers from './swarch2022i/imagine_profile_ms/resolvers';
 
-import categoryResolvers from './swarch2022i/categories/resolvers'
+import categoryResolvers from './Imagine/example/resolvers'
 
 // merge the typeDefs -- esto nos toca con cada typeDefs
 const mergedTypeDefs = mergeSchemas(
-  ['scalar JSON', categoryTypeDef],
-  [categoryQueries],
-  [categoryMutations],
+  ['scalar JSON', categoryTypeDef], [categoryQueries], [categoryMutations],
 )
 
 // Generate the schema object from your types definition. -- lomismo la enfermedad del lomo :v
 export default makeExecutableSchema({
   typeDefs: mergedTypeDefs,
-  resolvers: merge(
-    { JSON: GraphQLJSON }, // allows scalar JSON
+  resolvers: merge({ JSON: GraphQLJSON }, // allows scalar JSON
     categoryResolvers,
   ),
 })
