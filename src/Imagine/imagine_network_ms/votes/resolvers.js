@@ -9,12 +9,7 @@ const resolvers = {
       generalRequest(`${URL}/${imageID}`, 'GET'),
   },
   Mutation: {
-    addVote: async (_, { vote }) => {
-      const test = await generalRequest(`${URL}`, 'PUT', vote)
-      console.log('asd', { vote })
-      console.log(test)
-      return test
-    },
+    addVote: async (_, { vote }) => generalRequest(`${URL}`, 'PUT', vote),
   },
 }
 
