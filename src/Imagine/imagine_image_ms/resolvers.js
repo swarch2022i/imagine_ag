@@ -1,19 +1,23 @@
 import { generalRequest, getRequest } from '../../utilities'
 import { urlImages, portImages, entryPointImages, entryPoint2Images } from './server'
 
-const URLImages = `http://${urlImages}:${portImages}/${entryPointImages}/${entryPoint2Images}`
+const URLImages = `http://${process.env.IMAGES_MS_URL}/${entryPointImages}/${entryPoint2Images}`
+  // const URLImages = `http://${urlImages}:${portImages}/${entryPointImages}/${entryPoint2Images}`
 
 const resolversImage = {
   Query: {
-    allImages: (_) => getRequest(URLImages, ''),
+    allImages: (_) => {
+      console.log(URLImages)
+      return getRequest(URLImages, '')
+    },
     imageById: (_, { id }) => generalRequest(`${URLImages}/${id}`, 'GET'),
   },
   Mutation: {
     createImage: (_, { image }) =>
-      generalRequest(`${URLImages}/`, 'POST', image),//Tal vez falle aqui
+      generalRequest(`${URLImages}/`, 'POST', image), //Tal vez falle aqui
     updateImage: (_, { id, image }) =>
       generalRequest(`${URLImages}/${id}`, 'PUT', image),
-    deleteImage: (_, { id }) => 
+    deleteImage: (_, { id }) =>
       generalRequest(`${URLImages}/${id}`, 'DELETE'),
   },
 }
