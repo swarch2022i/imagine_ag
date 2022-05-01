@@ -10,23 +10,26 @@ import { formatError } from 'graphql';
  * @return {Promise.<*>} - promise with the error or the response object
  */
 export async function generalRequest(url, method, body, fullResponse) {
-	const parameters = {
-		method,
-		uri: encodeURI(url),
-		body,
-		json: true,
-		resolveWithFullResponse: fullResponse
-	};
-	if (process.env.SHOW_URLS) {
-		// eslint-disable-next-line
-		console.log(url);
-	}
+  const parameters = {
+    method,
+    uri: encodeURI(url),
+    body,
+    json: true,
+    resolveWithFullResponse: fullResponse
+  };
+  if (process.env.SHOW_URLS) {
+    // eslint-disable-next-line
+    console.log(url);
+  }
 
-	try {
-		return await request(parameters);
-	} catch (err) {
-		return err;
-	}
+  try {
+    let response = await request(parameters)
+    console.log('respuesta', response)
+    return response;
+    // return await request(parameters)
+  } catch (err) {
+    return err;
+  }
 }
 
 /**
@@ -36,15 +39,15 @@ export async function generalRequest(url, method, body, fullResponse) {
  * @return {string} - url with the added parameters
  */
 export function addParams(url, parameters) {
-	let queryUrl = `${url}?`;
-	for (let param in parameters) {
-		// check object properties
-		if (
-			Object.prototype.hasOwnProperty.call(parameters, param) &&
-			parameters[param]
-		) {
-			if (Array.isArray(parameters[param])) {
-				queryUrl += `${param}=${parameters[param].join(`&${param}=`)}&`;
+  let queryUrl = `${url}?`;
+  for (let param in parameters) {
+    // check object properties
+    if (
+      Object.prototype.hasOwnProperty.call(parameters, param) &&
+      parameters[param]
+    ) {
+      if (Array.isArray(parameters[param])) {
+        queryUrl += `${param}=${parameters[param].join(`&${param}=`)}&`;
 			} else {
 				queryUrl += `${param}=${parameters[param]}&`;
 			}
