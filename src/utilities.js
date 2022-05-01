@@ -10,31 +10,11 @@ import { formatError } from 'graphql'
  * @return {Promise.<*>} - promise with the error or the response object
  */
 export async function generalRequest(url, method, body, fullResponse) {
-<<<<<<< HEAD
-=======
-  console.log('sad', url)
->>>>>>> network
   const parameters = {
     method,
     uri: encodeURI(url),
     body,
     json: true,
-<<<<<<< HEAD
-    resolveWithFullResponse: fullResponse
-  };
-  if (process.env.SHOW_URLS) {
-    // eslint-disable-next-line
-    console.log(url);
-  }
-
-  try {
-    let response = await request(parameters)
-    console.log('respuesta', response)
-    return response;
-    // return await request(parameters)
-  } catch (err) {
-    return err;
-=======
     resolveWithFullResponse: fullResponse,
   }
   if (process.env.SHOW_URLS) {
@@ -43,10 +23,12 @@ export async function generalRequest(url, method, body, fullResponse) {
   }
 
   try {
-    return await request(parameters)
+    let response = await request(parameters)
+    console.log('respuesta', response)
+    return response
+    // return await request(parameters)
   } catch (err) {
     return err
->>>>>>> network
   }
 }
 
@@ -57,11 +39,7 @@ export async function generalRequest(url, method, body, fullResponse) {
  * @return {string} - url with the added parameters
  */
 export function addParams(url, parameters) {
-<<<<<<< HEAD
-  let queryUrl = `${url}?`;
-=======
   let queryUrl = `${url}?`
->>>>>>> network
   for (let param in parameters) {
     // check object properties
     if (
@@ -69,15 +47,6 @@ export function addParams(url, parameters) {
       parameters[param]
     ) {
       if (Array.isArray(parameters[param])) {
-<<<<<<< HEAD
-        queryUrl += `${param}=${parameters[param].join(`&${param}=`)}&`;
-			} else {
-				queryUrl += `${param}=${parameters[param]}&`;
-			}
-		}
-	}
-	return queryUrl;
-=======
         queryUrl += `${param}=${parameters[param].join(`&${param}=`)}&`
       } else {
         queryUrl += `${param}=${parameters[param]}&`
@@ -85,7 +54,6 @@ export function addParams(url, parameters) {
     }
   }
   return queryUrl
->>>>>>> network
 }
 
 /**
@@ -114,17 +82,6 @@ export function mergeSchemas(typeDefs, queries, mutations) {
 }
 
 export function formatErr(error) {
-<<<<<<< HEAD
-	const data = formatError(error);
-	const { originalError } = error;
-	if (originalError && originalError.error) {
-		const { path } = data;
-		const { error: { id: message, code, description } } = originalError;
-		return { message, code, description, path };
-	}
-	return data;
-}
-=======
   const data = formatError(error)
   const { originalError } = error
   if (originalError && originalError.error) {
@@ -136,4 +93,3 @@ export function formatErr(error) {
   }
   return data
 }
->>>>>>> network

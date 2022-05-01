@@ -1,12 +1,14 @@
 import { generalRequest } from '../../../utilities'
-import { url, port, entryPoint, entryPoint2 } from './server'
+import { urlComments, portComments, entryPoint, entryPoint2 } from './server'
 
-const URL = `http://${url}:${port}/${entryPoint}/${entryPoint}`
+const URL = `http://${process.env.COMMENTS_MS_URL}/${entryPoint}/${entryPoint2}`
 
 const resolvers = {
   Query: {
-    commentsByImageId: (_, { imageID }) =>
-      generalRequest(`${URL}?imageID=${imageID}`, 'GET'),
+    commentsByImageId: (_, { imageID }) => {
+      console.log(`${URL}?imageID=${imageID}`)
+      return generalRequest(`${URL}?imageID=${imageID}`, 'GET')
+    },
   },
   Mutation: {
     createComment: (_, { imageID, message }) =>
