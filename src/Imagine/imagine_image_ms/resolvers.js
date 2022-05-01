@@ -14,7 +14,7 @@ const resolversImage = {
   },
   Mutation: {
     createImage: (_, { image }) =>
-      generalRequest(`${URLImages}/`, 'POST', image), //Tal vez falle aqui
+      generalRequest(`${URLImages}/`, 'POST', image),
     updateImage: (_, { id, image }) =>
       generalRequest(`${URLImages}/${id}`, 'PUT', image),
     deleteImage: (_, { id }) =>

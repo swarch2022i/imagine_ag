@@ -1,11 +1,11 @@
 export const imageTypeDef = `
   type Image {
-      id: Int!
+      id: String!
       name: String
       description: String
       tags: [String]
-      ownerId: Int!
-      commentsId: [Int]
+      ownerId: String!
+      commentsId: [String]
       imageStorageId: String!
       url: String!
   }
@@ -13,8 +13,8 @@ export const imageTypeDef = `
       name: String
       description: String
       tags: [String]
-      ownerId: Int!
-      commentsId: [Int]
+      ownerId: String!
+      commentsId: [String]
       imageStorageId: String!
       url: String!
 
@@ -22,11 +22,11 @@ export const imageTypeDef = `
 
 export const imageQueries = `
       allImages: [Image]!
-      imageById(id: Int!): Image!
+      imageById(id: String!): Image!
   `;
 
 export const imageMutations = `
     createImage(image: ImageInput!): Image!
-    updateImage(id: Int!, image: ImageInput!): Image!
-    deleteImage(id: Int!): Int
+    updateImage(id: String!, image: ImageInput!): Image!
+    deleteImage(id: String!): String
 `;
