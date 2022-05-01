@@ -1,7 +1,7 @@
 import { generalRequest } from '../../../utilities'
-import { url, port, entryPoint } from './server'
+import { url, port, entryPoint, entryPoint2 } from './server'
 
-const URL = `http://${url}:${port}/${entryPoint}`
+const URL = `http://${url}:${port}/${entryPoint}/${entryPoint2}`
 
 const resolvers = {
   Query: {
