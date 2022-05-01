@@ -24,10 +24,12 @@ import {
 // import profileResolvers from './swarch2022i/imagine_profile_ms/resolvers';
 
 import categoryResolvers from './Imagine/example/resolvers'
+import imageStorageResolvers from './Imagine/imagine_storage_ms/resolvers'
+import { imageStorageMutations, imageStorageQueries, imageStorageTypeDef } from './Imagine/imagine_storage_ms/typeDefs'
 
 // merge the typeDefs -- esto nos toca con cada typeDefs
 const mergedTypeDefs = mergeSchemas(
-  ['scalar JSON', categoryTypeDef], [categoryQueries], [categoryMutations],
+  ['scalar JSON', categoryTypeDef, imageStorageTypeDef], [categoryQueries, imageStorageQueries], [categoryMutations, imageStorageMutations],
 )
 
 // Generate the schema object from your types definition. -- lomismo la enfermedad del lomo :v
@@ -35,5 +37,6 @@ export default makeExecutableSchema({
   typeDefs: mergedTypeDefs,
   resolvers: merge({ JSON: GraphQLJSON }, // allows scalar JSON
     categoryResolvers,
+    imageStorageResolvers
   ),
 })
