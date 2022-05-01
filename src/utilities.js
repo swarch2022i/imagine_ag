@@ -1,5 +1,5 @@
-import request from 'request-promise-native';
-import { formatError } from 'graphql';
+import request from 'request-promise-native'
+import { formatError } from 'graphql'
 
 /**
  * Creates a request following the given parameters
@@ -10,11 +10,16 @@ import { formatError } from 'graphql';
  * @return {Promise.<*>} - promise with the error or the response object
  */
 export async function generalRequest(url, method, body, fullResponse) {
+<<<<<<< HEAD
+=======
+  console.log('sad', url)
+>>>>>>> network
   const parameters = {
     method,
     uri: encodeURI(url),
     body,
     json: true,
+<<<<<<< HEAD
     resolveWithFullResponse: fullResponse
   };
   if (process.env.SHOW_URLS) {
@@ -29,6 +34,19 @@ export async function generalRequest(url, method, body, fullResponse) {
     // return await request(parameters)
   } catch (err) {
     return err;
+=======
+    resolveWithFullResponse: fullResponse,
+  }
+  if (process.env.SHOW_URLS) {
+    // eslint-disable-next-line
+    console.log(url)
+  }
+
+  try {
+    return await request(parameters)
+  } catch (err) {
+    return err
+>>>>>>> network
   }
 }
 
@@ -39,7 +57,11 @@ export async function generalRequest(url, method, body, fullResponse) {
  * @return {string} - url with the added parameters
  */
 export function addParams(url, parameters) {
+<<<<<<< HEAD
   let queryUrl = `${url}?`;
+=======
+  let queryUrl = `${url}?`
+>>>>>>> network
   for (let param in parameters) {
     // check object properties
     if (
@@ -47,6 +69,7 @@ export function addParams(url, parameters) {
       parameters[param]
     ) {
       if (Array.isArray(parameters[param])) {
+<<<<<<< HEAD
         queryUrl += `${param}=${parameters[param].join(`&${param}=`)}&`;
 			} else {
 				queryUrl += `${param}=${parameters[param]}&`;
@@ -54,6 +77,15 @@ export function addParams(url, parameters) {
 		}
 	}
 	return queryUrl;
+=======
+        queryUrl += `${param}=${parameters[param].join(`&${param}=`)}&`
+      } else {
+        queryUrl += `${param}=${parameters[param]}&`
+      }
+    }
+  }
+  return queryUrl
+>>>>>>> network
 }
 
 /**
@@ -64,8 +96,8 @@ export function addParams(url, parameters) {
  * @return {Promise.<*>}
  */
 export function getRequest(url, path, parameters) {
-	const queryUrl = addParams(`${url}/${path}`, parameters);
-	return generalRequest(queryUrl, 'GET');
+  const queryUrl = addParams(`${url}/${path}`, parameters)
+  return generalRequest(queryUrl, 'GET')
 }
 
 /**
@@ -76,12 +108,13 @@ export function getRequest(url, path, parameters) {
  * @return {string}
  */
 export function mergeSchemas(typeDefs, queries, mutations) {
-	return `${typeDefs.join('\n')}
+  return `${typeDefs.join('\n')}
     type Query { ${queries.join('\n')} }
-    type Mutation { ${mutations.join('\n')} }`;
+    type Mutation { ${mutations.join('\n')} }`
 }
 
 export function formatErr(error) {
+<<<<<<< HEAD
 	const data = formatError(error);
 	const { originalError } = error;
 	if (originalError && originalError.error) {
@@ -91,3 +124,16 @@ export function formatErr(error) {
 	}
 	return data;
 }
+=======
+  const data = formatError(error)
+  const { originalError } = error
+  if (originalError && originalError.error) {
+    const { path } = data
+    const {
+      error: { id: message, code, description },
+    } = originalError
+    return { message, code, description, path }
+  }
+  return data
+}
+>>>>>>> network

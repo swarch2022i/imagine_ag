@@ -1,0 +1,6 @@
+query{
+  commentsByImageId(imageID: "123") {
+    imageID
+    message
+  }
+}
