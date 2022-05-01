@@ -7,15 +7,10 @@ services:
             - "5000:5000"
         environment:
             - IMAGES_MS_URL=imagesms:8080
-            # - IMAGES_MS_PORT=
             - STORAGE_MS_URL=storagems:3000
-            # - STORAGE_MS_PORT=3000
         depends_on:
             - storage_ms
             - images_ms
-        # networks:
-        #     data_bases:
-        #         ipv4_address: 172.16.0.3
     storage_ms:
         image: rhiino/imagine_storage_ms:v2
         environment:
@@ -68,17 +63,12 @@ services:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: imagine_images_db
             MYSQL_PASSWORD: root
-        # expose:
-        #     - "3306"
-        # networks:
-        #     data_bases:
-        #         ipv4_address: 172.16.0.4
+        expose:
+            - "3306"
 
     images_ms:
         image: nisanchezva/imagine_images_ms
         restart: on-failure
-        # expose:
-        #     - 8080
         ports:
             - "8080:8080"
 
@@ -90,9 +80,6 @@ services:
         depends_on:
             - images_db
         hostname: imagesms
-        # networks:
-        #     data_bases:
-        #         ipv4_address: 172.16.0.2
     # collections_ms:
     #     image: lalopaex/imagine_collections_ms
     #     restart: on-failure
@@ -117,11 +104,3 @@ services:
     #     #    data_bases:
     #     # ipv4_address: 172.16.0.2
     #     hostname: collections_db
-
-networks:
-    data_bases:
-        ipam:
-            driver: default
-            config:
-                - subnet: "172.16.0.0/27"
-                  gateway: "172.16.0.1"
