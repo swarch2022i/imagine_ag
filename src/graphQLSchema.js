@@ -29,14 +29,14 @@ import { imageStorageMutations, imageStorageQueries, imageStorageTypeDef } from 
 
 // merge the typeDefs -- esto nos toca con cada typeDefs
 const mergedTypeDefs = mergeSchemas(
-  ['scalar JSON', categoryTypeDef, imageStorageTypeDef], [categoryQueries, imageStorageQueries], [categoryMutations, imageStorageMutations],
+  ['scalar JSON', imageStorageTypeDef], [imageStorageQueries], [imageStorageMutations],
 )
 
 // Generate the schema object from your types definition. -- lomismo la enfermedad del lomo :v
 export default makeExecutableSchema({
   typeDefs: mergedTypeDefs,
   resolvers: merge({ JSON: GraphQLJSON }, // allows scalar JSON
-    categoryResolvers,
+    // categoryResolvers,
     imageStorageResolvers
   ),
 })

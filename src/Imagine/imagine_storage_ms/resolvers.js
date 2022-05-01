@@ -6,13 +6,10 @@ const URL = `http://${url}:${port}/${entryPoint}`
 const resolvers = {
   Query: {
     allImageStorage: (_) => getRequest(URL, ''),
-    imageStorageById: async(_, { imageStorageId }) => {
-      console.log(`${URL}/${imageStorageId}`)
-      await generalRequest(`${URL}/${imageStorageId}`, 'GET')
-    },
+    imageStorageById: (_, { id }) => generalRequest(`${URL}/${id}`, 'GET'),
   },
   Mutation: {
-    deleteImageStorage: (_, { imageStorageId }) => generalRequest(`${URL}/${imageStorageId}`, 'DELETE'),
+    deleteImageStorage: (_, { id }) => generalRequest(`${URL}/${id}`, 'DELETE'),
   },
 }
 

@@ -24,8 +24,9 @@ export async function generalRequest(url, method, body, fullResponse) {
 
   try {
     let response = await request(parameters)
-    console.log(response)
+    console.log('respuesta', response)
     return response;
+    // return await request(parameters)
   } catch (err) {
     return err;
   }
