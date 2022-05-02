@@ -1,5 +1,5 @@
 import { generalRequest } from '../../../utilities'
-import { urlVotes, portVotes, entryPoint, entryPoint2 } from './server'
+import { urlVotes, entryPoint, entryPoint2 } from './server'
 
 const URL = `http://${urlVotes}/${entryPoint}/${entryPoint2}`
 

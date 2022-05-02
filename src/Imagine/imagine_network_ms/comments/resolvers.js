@@ -1,7 +1,7 @@
 import { generalRequest } from '../../../utilities'
-import { urlComments, portComments, entryPoint, entryPoint2 } from './server'
+import { urlComments, entryPoint, entryPoint2 } from './server'
 
-const URL = `http://${process.env.COMMENTS_MS_URL}/${entryPoint}/${entryPoint2}`
+const URL = `http://${urlComments}/${entryPoint}/${entryPoint2}`
 
 const resolvers = {
   Query: {
