@@ -8,9 +8,11 @@ services:
         environment:
             - IMAGES_MS_URL=imagesms:8080
             - STORAGE_MS_URL=storagems:3000
+            - COLLECTIONS_MS_URL=collectionsms:8000
         depends_on:
             - storage_ms
             - images_ms
+            - collections_ms
     storage_ms:
         image: rhiino/imagine_storage_ms:v2
         environment:
@@ -80,27 +82,28 @@ services:
         depends_on:
             - images_db
         hostname: imagesms
-    # collections_ms:
-    #     image: lalopaex/imagine_collections_ms
-    #     restart: on-failure
-    #     depends_on:
-    #         - collections_db
-    #     # networks:
-    #     # data_bases:
-    #     ports:
-    #         - "8000:8000"
-    #     environment:
-    #         - NEO4J_BOLT_URL=collections_db:7687
-    #         - NEO4J_PASSWORD=test
-    # collections_db:
-    #     image: neo4j:latest
-    #     expose:
-    #         - "7687"
-    #         - "7474"
-    #     restart: on-failure
-    #     environment:
-    #         - NEO4J_AUTH=neo4j/test
-    #     #    networks:
-    #     #    data_bases:
-    #     # ipv4_address: 172.16.0.2
-    #     hostname: collections_db
+    collections_ms:
+        image: lalopaex/imagine_collections_ms
+        restart: on-failure
+        depends_on:
+            - collections_db
+        # networks:
+        # data_bases:
+        ports:
+            - "8000:8000"
+        environment:
+            - NEO4J_BOLT_URL=collections_db:7687
+            - NEO4J_PASSWORD=test
+        hostname: collectionsms
+    collections_db:
+        image: neo4j:latest
+        expose:
+            - "7687"
+            - "7474"
+        restart: on-failure
+        environment:
+            - NEO4J_AUTH=neo4j/test
+        #    networks:
+        #    data_bases:
+        # ipv4_address: 172.16.0.2
+        hostname: collections_db
