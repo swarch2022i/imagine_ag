@@ -32,6 +32,12 @@ import {
   collectionsMutations,
   userMutations,
   responseTypeDef} from './Imagine/imagine_collection_ms/typeDefs'
+import{
+  profileMutations,
+  profileQueries,
+  profileTypeDef,
+} from './Imagine/imagine_profile_ms/typeDefs'
+
 
 
 //Resolvers imports
@@ -40,16 +46,19 @@ import imageStorageResolvers from './Imagine/imagine_storage_ms/resolvers'
 import collectionResolvers from './Imagine/imagine_collection_ms/resolvers';
 import commentResolvers from './Imagine/imagine_network_ms/comments/resolvers'
 import voteResolvers from './Imagine/imagine_network_ms/votes/resolvers'
+import profileResolvers from './Imagine/imagine_profile_ms/resolvers'
 
 
 
 // Merge mutations, queries and typdefs
 const mergedTypeDefs = mergeSchemas(
 
+
   ['scalar JSON', imageTypeDef, imageStorageTypeDef, userTypeDef, collectionsTypeDef, responseTypeDef,commentTypeDef,
-  voteTypeDef,],
-  [imageQueries, imageStorageQueries, collectionsQueries,commentQueries, voteQueries],
-  [imageMutations, imageStorageMutations, collectionsMutations, userMutations,commentMutations, voteMutations],
+  voteTypeDef,profileTypeDef,],
+  [imageQueries, imageStorageQueries, collectionsQueries,commentQueries, voteQueries,profileQueries],
+  [imageMutations, imageStorageMutations, collectionsMutations, userMutations,commentMutations, voteMutations,profileMutations],
+
 
 
 )
@@ -59,6 +68,7 @@ export default makeExecutableSchema({
   typeDefs: mergedTypeDefs,
 
 
+
   resolvers: merge({ JSON: GraphQLJSON }, // allows scalar JSON
     // categoryResolvers,
     imageResolvers,
@@ -66,6 +76,8 @@ export default makeExecutableSchema({
     collectionResolvers,
     commentResolvers,
     voteResolvers,
+    profileResolvers,
+
 
 
 

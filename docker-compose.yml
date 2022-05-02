@@ -11,11 +11,13 @@ services:
             - COLLECTIONS_MS_URL=collectionsms:8000
             - COMMENTS_MS_URL=networkms:3123
             - VOTES_MS_URL=networkms:3123
+            - PROFILE_MS_URL=profilems:80
         depends_on:
             - storage_ms
             - images_ms
             - collections_ms
             - network_ms
+            - profile_ms
 
     storage_ms:
         image: rhiino/imagine_storage_ms:v2
@@ -28,21 +30,24 @@ services:
             - "1234:3000"
         hostname: storagems
 
-    # ms-sql-server:
-    #     image: mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
-    #     environment:
-    #         ACCEPT_EULA: "Y"
-    #         SA_PASSWORD: "Pa##w0rd2020"
-    #         MSSQL_PID: Express
-    #     ports:
-    #         - "1433:1433"
-    # profile_ms:
-    #     image: demonmasks/imagine_profile_ms
-    #     environment:
-    #         - ASPNETCORE_ENVIRONMENT=Development
-    #         - ASPNETCORE_URLS=http://+:80
-    #     ports:
-    #         - "8081:80"
+
+    ms-sql-server:
+        image: mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
+        environment:
+            ACCEPT_EULA: "Y"
+            SA_PASSWORD: "Pa##w0rd2020"
+            MSSQL_PID: Express
+        ports:
+            - "1433:1433"
+    profile_ms:
+        image: demonmasks/imagine_profile_ms
+        restart: on-failure
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:80
+        ports:
+            - "8081:80"
+        hostname: profilems
     # auth_ms:
     #     image: dacperezce/imagine_auth_ms:v1
     #     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
