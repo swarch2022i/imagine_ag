@@ -9,10 +9,14 @@ services:
             - IMAGES_MS_URL=imagesms:8080
             - STORAGE_MS_URL=storagems:3000
             - COLLECTIONS_MS_URL=collectionsms:8000
+            - COMMENTS_MS_URL=networkms:3123
+            - VOTES_MS_URL=networkms:3123
         depends_on:
             - storage_ms
             - images_ms
             - collections_ms
+            - network_ms
+
     storage_ms:
         image: rhiino/imagine_storage_ms:v2
         environment:
@@ -52,12 +56,12 @@ services:
     #         POSTGRES_PASSWORD: arqui
     #         POSTGRES_USER: arqui
     #         POSTGRES_DB: imagine_auth_db
-    # network_ms:
-    #     image: josteda99/imagine_network_ms
-    #     restart: on-failure
-    #     ports:
-    #         - "3001:3000"
-    #     hostname: network_ms
+    network_ms:
+        image: josteda99/imagine_network_ms
+        restart: on-failure
+        ports:
+            - "3123:3123"
+        hostname: networkms
 
     images_db:
         image: mysql:5.7
