@@ -4,17 +4,17 @@ type Perfil {
     idUsuario: String!
     nombre: String!
     idImagenPerfil: String!
-    texto: String!
-    numfollows : Int!
-    numfollowers : Int!
+    texto: String
+    numfollows : Int
+    numfollowers : Int
 }
 input PerfilInput {
     idUsuario: String!
     nombre: String!
     idImagenPerfil: String!
-    texto: String!
-    numfollows : Int!
-    numfollowers : Int!
+    texto: String
+    numfollows : Int
+    numfollowers : Int
 }
 type Follows {
     id: Int!
