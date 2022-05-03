@@ -8,12 +8,12 @@ const resolvers = {
   Query: {
     allPerfiles:(_) => getRequest(`${URLP}/getPerfiles`, ''),
     PerfilById: (_, { id }) => generalRequest(`${URLP}/getPerfil/${id}`, 'GET'),
-    getPerfilByIdUsuario:(_, { idUsuario}) =>generalRequest(`${URLP}/getPerfilByIdUsuario/ ${idUsuario}`,'GET'),
+    getPerfilByIdUsuario:(_, { idUsuario }) =>generalRequest(`${URLP}/getPerfilByIdUsuario/${idUsuario}`,'GET'),
 
     allFollows:(_) => getRequest(`${URLF}/getAllFollows`, ''),
     getFollowsByid: (_, { id }) => generalRequest(`${URLF}/getFollows/${id}`, 'GET'),
-    getAllFollowersById:(_) =>generalRequest(`${URLF}/getAllFollowersById/ ${idUsuario}`,'GET'),
-    getAllFollowById:(_) =>generalRequest(`${URLF}/getAllFollowsById/ ${idUsuario}`,'GET'),
+    getAllFollowersById:(_, { idUsuario }) =>generalRequest(`${URLF}/getAllFollowersById/${idUsuario}`,'GET'),
+    getAllFollowById:(_, { idUsuario }) =>generalRequest(`${URLF}/getAllFollowsById/${idUsuario}`,'GET'),
   },
   Mutation: {
     createPerfil: (_, { perfil }) =>
