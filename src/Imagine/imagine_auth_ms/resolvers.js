@@ -5,16 +5,16 @@ const URL = `http://${url}:${port}/${entryPoint}`
 
 const authResolvers = {
   Query: {
-    allUsers: (_, { token }) => generalRequest(URL, '', token=token),
-    userById: (_, { id, token }) => generalRequest(`${URL}/users/${id}`, 'GET', token=token),
+    allUsers: (_, { token }) => generalRequest(`${URL}/users/`, 'GET',{},false,token),
+    userById: (_, { id, token }) => generalRequest(`${URL}/users/${id}`, 'GET', {},false,token),
   },
   Mutation: {
     createUser: (_, { user }) =>
       generalRequest(`${URL}/users`, 'POST', user),
     updateUser: (_, { id, token, user }) =>
-      generalRequest(`${URL}/users/${id}`, 'PUT', user, token=token),
+      generalRequest(`${URL}/users/${id}`, 'PUT', user,false,token),
     deleteUser: (_, { id, token }) => 
-      generalRequest(`${URL}/users/${id}`, 'DELETE', token=token),
+      generalRequest(`${URL}/users/${id}`, 'DELETE',{},false,token),
     login: (_, { login }) =>
       generalRequest(`${URL}/auth/login`, 'POST', login),
   },
