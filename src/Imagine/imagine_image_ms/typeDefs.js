@@ -23,6 +23,8 @@ export const imageTypeDef = `
 export const imageQueries = `
       allImages: [Image]!
       imageById(id: String!): Image!
+      imageByOwnerId(id: String!): Image!
+      imageByImageStorageId(id: String!): Image!
   `;
 
 export const imageMutations = `
