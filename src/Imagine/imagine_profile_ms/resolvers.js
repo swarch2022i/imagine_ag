@@ -19,6 +19,8 @@ const resolvers = {
     createPerfil: (_, { perfil }) =>
     generalRequest(`${URLP}/createPerfil/`, 'POST', perfil),
     deletePerfil: (_, { id }) => generalRequest(`${URLP}/deletePerfil/${id}`, 'DELETE'),
+    updatePerfil: (_, { id, perfil }) =>
+    generalRequest(`${URLP}/putPerfil/${id}`, 'PUT', perfil),
 
     createFollow: (_, { follow }) =>
     generalRequest(`${URLF}/createFollow/`, 'POST', follow),

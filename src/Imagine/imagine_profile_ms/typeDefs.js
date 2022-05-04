@@ -43,9 +43,8 @@ getAllFollowById(idFollow: String!): Follows!
 
 export const profileMutations = `
 createPerfil(perfil: PerfilInput!): Perfil!
-putPerfil(id: Int!,perfil: PerfilInput!):Perfil!
+updatePerfil(id: Int!,perfil: PerfilInput!):Perfil!
 deletePerfil(id: Int!): Perfil!
-
 createFollow(follow : FollowsInput!): Follows!
 deleteFollows(id: Int!): Follows!
 `
