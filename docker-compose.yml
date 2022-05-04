@@ -13,22 +13,22 @@ services:
             - VOTES_MS_URL=networkms:3123
             - PROFILE_MS_URL=profilems:80
         depends_on:
-            # - storage_ms
-            # - images_ms
-            # - collections_ms
-            # - network_ms
+            - storage_ms
+            - images_ms
+            - collections_ms
+            - network_ms
             - profile_ms
 
-    # storage_ms:
-    #     image: rhiino/imagine_storage_ms:v2
-    #     environment:
-    #         - GCS_BUCKET=arqui
-    #         - GCS_FILE=clean-framework-340802-d71f73f1694f.json
-    #         - GCS_PROJECT_ID=clean-framework-340802
-    #         - GCS_ENDPOINT=https://storage.googleapis.com/
-    #     ports:
-    #         - "1234:3000"
-    #     hostname: storagems
+    storage_ms:
+        image: rhiino/imagine_storage_ms:v2
+        environment:
+            - GCS_BUCKET=arqui
+            - GCS_FILE=clean-framework-340802-d71f73f1694f.json
+            - GCS_PROJECT_ID=clean-framework-340802
+            - GCS_ENDPOINT=https://storage.googleapis.com/
+        ports:
+            - "1234:3000"
+        hostname: storagems
 
 
     ms-sql-server:
@@ -40,7 +40,7 @@ services:
         ports:
             - "1433:1433"
     profile_ms:
-        image: perfilbackend
+        image: demonmasks/imagine_profile_ms
         restart: on-failure
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
@@ -48,62 +48,62 @@ services:
         ports:
             - "8081:80"
         hostname: profilems
-    # auth_ms:
-    #     image: dacperezce/imagine_auth_ms:v1
-    #     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    #     ports:
-    #         - "3000:3000"
-    #     depends_on:
-    #         - auth_db
-    # auth_db:
-    #     image: postgres
-    #     environment:
-    #         POSTGRES_PASSWORD: arqui
-    #         POSTGRES_USER: arqui
-    #         POSTGRES_DB: imagine_auth_db
-    # network_ms:
-    #     image: josteda99/imagine_network_ms
-    #     restart: on-failure
-    #     ports:
-    #         - "3123:3123"
-    #     hostname: networkms
+    auth_ms:
+        image: dacperezce/imagine_auth_ms:v1
+        command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+        ports:
+            - "3000:3000"
+        depends_on:
+            - auth_db
+    auth_db:
+        image: postgres
+        environment:
+            POSTGRES_PASSWORD: arqui
+            POSTGRES_USER: arqui
+            POSTGRES_DB: imagine_auth_db
+    network_ms:
+        image: josteda99/imagine_network_ms
+        restart: on-failure
+        ports:
+            - "3123:3123"
+        hostname: networkms
 
-    # images_db:
-    #     image: mysql:5.7
-    #     environment:
-    #         MYSQL_ROOT_PASSWORD: root
-    #         MYSQL_DATABASE: imagine_images_db
-    #         MYSQL_PASSWORD: root
-    #     expose:
-    #         - "3306"
+    images_db:
+        image: mysql:5.7
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: imagine_images_db
+            MYSQL_PASSWORD: root
+        expose:
+            - "3306"
 
-    # images_ms:
-    #     image: nisanchezva/imagine_images_ms
-    #     restart: on-failure
-    #     ports:
-    #         - "8080:8080"
+    images_ms:
+        image: nisanchezva/imagine_images_ms
+        restart: on-failure
+        ports:
+            - "8080:8080"
 
-    #     environment:
-    #         SPRING_DATASOURCE_URL: jdbc:mysql://images_db:3306/imagine_images_db?autoReconnect=true&useSSL=false
-    #         SPRING_DATASOURCE_USERNAME: "root"
-    #         SPRING_DATASOURCE_PASSWORD: "root"
-    #         SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
-    #     depends_on:
-    #         - images_db
-    #     hostname: imagesms
-    # collections_ms:
-    #     image: lalopaex/imagine_collections_ms
-    #     restart: on-failure
-    #     depends_on:
-    #         - collections_db
-    #     # networks:
-    #     # data_bases:
-    #     ports:
-    #         - "8000:8000"
-    #     environment:
-    #         - NEO4J_BOLT_URL=collections_db:7687
-    #         - NEO4J_PASSWORD=test
-    #     hostname: collectionsms
+        environment:
+            SPRING_DATASOURCE_URL: jdbc:mysql://images_db:3306/imagine_images_db?autoReconnect=true&useSSL=false
+            SPRING_DATASOURCE_USERNAME: "root"
+            SPRING_DATASOURCE_PASSWORD: "root"
+            SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+        depends_on:
+            - images_db
+        hostname: imagesms
+    collections_ms:
+        image: lalopaex/imagine_collections_ms
+        restart: on-failure
+        depends_on:
+            - collections_db
+        # networks:
+        # data_bases:
+        ports:
+            - "8000:8000"
+        environment:
+            - NEO4J_BOLT_URL=collections_db:7687
+            - NEO4J_PASSWORD=test
+        hostname: collectionsms
     # collections_db:
     #     image: neo4j:latest
     #     expose:
@@ -112,7 +112,7 @@ services:
     #     restart: on-failure
     #     environment:
     #         - NEO4J_AUTH=neo4j/test
-        #    networks:
-        #    data_bases:
-        # ipv4_address: 172.16.0.2
-        # hostname: collections_db
+    #        networks:
+    #        data_bases:
+    #     ipv4_address: 172.16.0.2
+    #     hostname: collections_db
