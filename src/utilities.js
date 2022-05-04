@@ -7,8 +7,10 @@ import { formatError } from 'graphql'
  * @param {string} method
  * @param {object} [body]
  * @param {boolean} [fullResponse]
+ * @param {string} accessToken
  * @return {Promise.<*>} - promise with the error or the response object
  */
+
 export async function generalRequest(url, method, body, fullResponse) {
   const parameters = {
     method,
@@ -21,6 +23,42 @@ export async function generalRequest(url, method, body, fullResponse) {
     // eslint-disable-next-line
     console.log(url)
   }
+  try {
+    let response = await request(parameters)
+    console.log('respuesta', response)
+    return response
+    // return await request(parameters)
+  } catch (err) {
+    return err
+  }
+}
+
+export async function generalRequestAUTH(url, method, body, fullResponse, accessToken) {
+	var parameters = {};
+	if(accessToken){
+		parameters = {
+			method,
+				uri: encodeURI(url),
+				body,
+                auth: {
+                    'bearer': accessToken
+                },
+				json: true,
+				resolveWithFullResponse: fullResponse
+		};
+	}else{
+		parameters = {
+			method,
+				uri: encodeURI(url),
+				body,
+				json: true,
+				resolveWithFullResponse: fullResponse
+		};
+	}
+	if (process.env.SHOW_URLS) {
+		// eslint-disable-next-line
+		console.log(url);
+	}
 
   try {
     let response = await request(parameters)

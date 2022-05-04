@@ -18,7 +18,11 @@ services:
             - collections_ms
             - network_ms
             - profile_ms
-
+    rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+            - 5672:5672
+            - 15672:15672
     storage_ms:
         image: rhiino/imagine_storage_ms:v2
         environment:
@@ -26,11 +30,12 @@ services:
             - GCS_FILE=clean-framework-340802-d71f73f1694f.json
             - GCS_PROJECT_ID=clean-framework-340802
             - GCS_ENDPOINT=https://storage.googleapis.com/
+            - RABBITMQ_HOST=rabbitmq
         ports:
-            - "1234:3000"
+            - "1234:1234"
         hostname: storagems
-
-
+        depends_on:
+            - rabbitmq
     ms-sql-server:
         image: mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
         environment:
@@ -82,12 +87,12 @@ services:
         restart: on-failure
         ports:
             - "8080:8080"
-
         environment:
             SPRING_DATASOURCE_URL: jdbc:mysql://images_db:3306/imagine_images_db?autoReconnect=true&useSSL=false
             SPRING_DATASOURCE_USERNAME: "root"
             SPRING_DATASOURCE_PASSWORD: "root"
             SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+            SPRING_RABBITMQ_HOST: rabbitmq
         depends_on:
             - images_db
         hostname: imagesms
@@ -96,6 +101,7 @@ services:
         restart: on-failure
         depends_on:
             - collections_db
+            - rabbitmq
         # networks:
         # data_bases:
         ports:

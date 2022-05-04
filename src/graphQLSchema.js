@@ -4,6 +4,7 @@ import { makeExecutableSchema } from 'graphql-tools'
 import { mergeSchemas } from './utilities'
 
 
+
 //Mutations, Queries and TypeDefs imports
 import {
   imageMutations,
@@ -37,7 +38,16 @@ import{
   profileQueries,
   profileTypeDef,
 } from './Imagine/imagine_profile_ms/typeDefs'
+import {
+  authMutations,
+  authQueries,
+  authTypeDef,
+} from './Imagine/imagine_auth_ms/typeDefs'
 
+
+
+
+import authResolvers from './Imagine/imagine_auth_ms/resolvers'
 
 
 //Resolvers imports
@@ -47,6 +57,7 @@ import collectionResolvers from './Imagine/imagine_collection_ms/resolvers';
 import commentResolvers from './Imagine/imagine_network_ms/comments/resolvers'
 import voteResolvers from './Imagine/imagine_network_ms/votes/resolvers'
 import profileResolvers from './Imagine/imagine_profile_ms/resolvers'
+import authResolvers from './Imagine/imagine_auth_ms/resolvers'
 
 
 
@@ -54,10 +65,12 @@ import profileResolvers from './Imagine/imagine_profile_ms/resolvers'
 const mergedTypeDefs = mergeSchemas(
 
 
+
   ['scalar JSON', imageTypeDef, imageStorageTypeDef, userTypeDef, collectionsTypeDef, responseTypeDef,commentTypeDef,
-  voteTypeDef,profileTypeDef,],
-  [imageQueries, imageStorageQueries, collectionsQueries,commentQueries, voteQueries,profileQueries],
-  [imageMutations, imageStorageMutations, collectionsMutations, userMutations,commentMutations, voteMutations,profileMutations],
+  voteTypeDef,profileTypeDef, authTypeDef],
+  [imageQueries, imageStorageQueries, collectionsQueries,commentQueries, voteQueries,profileQueries, authQueries],
+  [imageMutations, imageStorageMutations, collectionsMutations, userMutations,commentMutations, voteMutations,profileMutations, authMutations],
+
 
 
 
@@ -77,6 +90,8 @@ export default makeExecutableSchema({
     commentResolvers,
     voteResolvers,
     profileResolvers,
+    authResolvers
+
 
 
 
