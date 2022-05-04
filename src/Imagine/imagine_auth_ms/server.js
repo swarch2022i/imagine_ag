@@ -1,3 +1,4 @@
-export const url = '172.19.0.1'
-export const port = '3000'
+// export const urlCollections = process.env.COLLECTIONS_MS_URL
+// export const port = '3000'
+export const urlAUTH = process.env.AUTH_MS_URL
 export const entryPoint = ''

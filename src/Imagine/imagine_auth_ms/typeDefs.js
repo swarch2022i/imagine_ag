@@ -1,12 +1,12 @@
 export const authTypeDef = `
-type User {
+type UserAUTH {
     id: Int!
     username: String!
     password_digest: String!
     created_at: String!
     updated_at: String!
 }
-input UserInput {
+input UserAUTHInput {
     username: String!
     password: String!
     password_confirmation: String!
@@ -28,13 +28,13 @@ input LoginInput {
 }`;
 
 export const authQueries =`
-    allUsers(token: String!): [User]!
-    userById(id: Int!, token: String!): User!
+    allUsers(token: String!): [UserAUTH]!
+    userById(id: Int!, token: String!): UserAUTH!
 `;
 
 export const authMutations = `
-    createUser(user: UserInput!): User!
-    updateUser(id: Int!, token: String!, user: UserInputUpdate!): User!
+    createUserAUTH(user: UserAUTHInput!): UserAUTH!
+    updateUser(id: Int!, token: String!, user: UserInputUpdate!): UserAUTH!
     deleteUser(id: Int!, token: String!): Int
     login(login: LoginInput!): Login!
 `;

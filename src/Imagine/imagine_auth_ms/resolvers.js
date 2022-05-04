@@ -1,7 +1,7 @@
 import { generalRequest, generalRequestAUTH, getRequest } from '../../utilities'
-import { url, port, entryPoint } from './server'
+import { url, port, entryPoint, urlAUTH } from './server'
 
-const URL = `http://${url}:${port}/${entryPoint}`
+const URL = `http://${urlAUTH}/${entryPoint}`
 
 const authResolvers = {
   Query: {
@@ -9,14 +9,14 @@ const authResolvers = {
     userById: (_, { id, token }) => generalRequestAUTH(`${URL}/users/${id}`, 'GET', {},false,token),
   },
   Mutation: {
-    createUser: (_, { user }) =>
-      generalRequest(`${URL}/users`, 'POST', user),
+    createUserAUTH: (_, { user }) =>
+      generalRequestAUTH(`${URL}/users`, 'POST', user),
     updateUser: (_, { id, token, user }) =>
-      generalRequest(`${URL}/users/${id}`, 'PUT', user,false,token),
+      generalRequestAUTH(`${URL}/users/${id}`, 'PUT', user,false,token),
     deleteUser: (_, { id, token }) => 
-      generalRequest(`${URL}/users/${id}`, 'DELETE',{},false,token),
+      generalRequestAUTH(`${URL}/users/${id}`, 'DELETE',{},false,token),
     login: (_, { login }) =>
-      generalRequest(`${URL}/auth/login`, 'POST', login),
+      generalRequestAUTH(`${URL}/auth/login`, 'POST', login),
   },
 }
 

@@ -47,7 +47,7 @@ import {
 
 
 
-import authResolvers from './Imagine/imagine_auth_ms/resolvers'
+
 
 
 //Resolvers imports
