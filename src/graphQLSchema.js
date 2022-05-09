@@ -17,11 +17,11 @@ import { mergeSchemas } from './utilities'
 
 import {
   userTypeDef,
+  responseTypeDef,
   collectionsTypeDef,
   collectionsQueries,
   collectionsMutations,
   userMutations,
-  responseTypeDef,
 } from './Imagine/imagine_collection_ms/typeDefs';
 
 //como debemos importar los resolvers
