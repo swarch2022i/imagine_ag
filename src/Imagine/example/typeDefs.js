@@ -1,12 +1,12 @@
 export const categoryTypeDef = `
-  type Category {
-      id: Int!
-      name: String!
-  }
-  input CategoryInput {
-      name: String!
-      description: String!
-  }`;
+type Category {
+    id: Int!
+    name: String!
+}
+input CategoryInput {
+    name: String!
+    description: String!
+}`;
 
 export const categoryQueries = `
       allCategories: [Category]!
