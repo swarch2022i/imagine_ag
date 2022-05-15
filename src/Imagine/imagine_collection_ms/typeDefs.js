@@ -1,10 +1,10 @@
 export const userTypeDef = `
 	type user {
-		uid: String!
+		uuid: String!
 	}
 
 	input userInput {
-		uid: String!
+		uuid: String!
 	}
 `;
 
@@ -15,33 +15,50 @@ export const responseTypeDef = `
 		data: [collection]
 		collection: collection
 		error: String
+		message: String
+		uuid: String
+		redirect: String
 	}
 `;
 
 export const collectionsTypeDef = `
 	type collection {
-		uid: String!
+		title: String!
 		images_ids: [String!]!
 		description: String!
 	}
 
-	input collectionsInput {
-		uid: String!
+	input image {
+		uuid: String
+	}
+	
+	input collectionInput {
+		uuid: String!
+		title: String!
 		images_ids: [String!]!
-		description: String!
+		description: String
+	}
+
+	input collectionInputPatch {
+		uuid: String!
+		title: String
+		images_ids: [image]
+		description: String
 	}
 `;
 
 export const collectionsQueries = `
-	collection(uid: String!): response!
-	userCollections(uid: String!): response!
+	collectionInfo(uuid: String!): response!
+	userCollections(uuid: String!): response!
 `;
 
 export const collectionsMutations = `
-	createCollection(collection: collectionsInput!): response!
-	updateCollection(uid_owner: String!, uid_collection: String!, description: String, images_ids: [String]): response!
-	deleteCollection(uid: String!): response!
-`
+	createCollection(collection: collectionInput!): response!
+	updateCollection(collection: collectionInputPatch!): response!
+	deleteCollection(uuid: String!): response!
+	deleteImage(uuid: String!): response!
+`;
+
 export const userMutations = `
-	createUser(user: userInput!): response!
+	createUser(uuid: String!): response!
 `;
