@@ -3,8 +3,6 @@ import GraphQLJSON from 'graphql-type-json'
 import { makeExecutableSchema } from 'graphql-tools'
 import { mergeSchemas } from './utilities'
 
-
-
 //Mutations, Queries and TypeDefs imports
 import {
   imageMutations,
@@ -32,8 +30,9 @@ import {
   collectionsQueries,
   collectionsMutations,
   userMutations,
-  responseTypeDef} from './Imagine/imagine_collection_ms/typeDefs'
-import{
+  responseTypeDef
+} from './Imagine/imagine_collection_ms/typeDefs'
+import {
   profileMutations,
   profileQueries,
   profileTypeDef,
@@ -66,10 +65,10 @@ const mergedTypeDefs = mergeSchemas(
 
 
 
-  ['scalar JSON', imageTypeDef, imageStorageTypeDef, userTypeDef, collectionsTypeDef, responseTypeDef,commentTypeDef,
-  voteTypeDef,profileTypeDef, authTypeDef],
-  [imageQueries, imageStorageQueries, collectionsQueries,commentQueries, voteQueries,profileQueries, authQueries],
-  [imageMutations, imageStorageMutations, collectionsMutations, userMutations,commentMutations, voteMutations,profileMutations, authMutations],
+  ['scalar JSON', imageTypeDef, imageStorageTypeDef, userTypeDef, collectionsTypeDef, responseTypeDef, commentTypeDef,
+    voteTypeDef, profileTypeDef, authTypeDef],
+  [imageQueries, imageStorageQueries, collectionsQueries, commentQueries, voteQueries, profileQueries, authQueries],
+  [imageMutations, imageStorageMutations, collectionsMutations, userMutations, commentMutations, voteMutations, profileMutations, authMutations],
 
 
 
