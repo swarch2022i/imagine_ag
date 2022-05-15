@@ -17,11 +17,13 @@ export const responseTypeDef = `
 		error: String
 		message: String
 		uuid: String
+		redirect: String
 	}
 `;
 
 export const collectionsTypeDef = `
 	type collection {
+		title: String!
 		images_ids: [String!]!
 		description: String!
 	}
@@ -32,12 +34,14 @@ export const collectionsTypeDef = `
 	
 	input collectionInput {
 		uuid: String!
+		title: String!
 		images_ids: [String!]!
 		description: String
 	}
 
 	input collectionInputPatch {
 		uuid: String!
+		title: String
 		images_ids: [image]
 		description: String
 	}
