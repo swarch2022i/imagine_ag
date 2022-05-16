@@ -3,7 +3,7 @@ export const imageTypeDef = `
       id: String!
       name: String
       description: String
-      tags: [String]
+      tag: [String]
       ownerId: String!
       commentsId: [String]
       imageStorageId: String!
@@ -12,7 +12,7 @@ export const imageTypeDef = `
   input ImageInput {
       name: String
       description: String
-      tags: [String]
+      tag: [String]
       ownerId: String!
       commentsId: [String]
       imageStorageId: String!
@@ -23,9 +23,11 @@ export const imageTypeDef = `
 export const imageQueries = `
       allImages: [Image]!
       imageById(id: String!): Image!
-      imageByOwnerId(id: String!): Image!
+      imageByOwnerId(id: String!): [Image]!
       imageByImageStorageId(id: String!): Image!
-  `;
+      imageByName(name: String!): [Image]!
+      imageByTag(tag: String!): [Image]!
+      `;
 
 export const imageMutations = `
     createImage(image: ImageInput!): Image!
