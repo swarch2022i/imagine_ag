@@ -5,7 +5,7 @@ type Perfil {
     nombre: String!
     idImagenPerfil: String!
     texto: String
-    numfollows : Int
+    numfollowBy : Int
     numfollowers : Int
 }
 input PerfilInput {
@@ -13,7 +13,7 @@ input PerfilInput {
     nombre: String!
     idImagenPerfil: String!
     texto: String
-    numfollows : Int
+    numfollowBy : Int
     numfollowers : Int
 }
 type Follows {
