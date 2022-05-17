@@ -1,5 +1,5 @@
 import { generalRequest, generalRequestAUTH, getRequest } from '../../utilities'
-import { url, port, entryPoint, urlAUTH } from './server'
+import { entryPoint, urlAUTH } from './server'
 
 const URL = `http://${urlAUTH}/${entryPoint}`
 

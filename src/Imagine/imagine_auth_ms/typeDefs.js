@@ -19,6 +19,7 @@ input UserInputUpdate {
 }
 type Login {
     username: String!
+    id: number!
     token: String!
     exp: String!
 }
