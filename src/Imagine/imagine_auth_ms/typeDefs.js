@@ -18,8 +18,8 @@ input UserInputUpdate {
     actual_password: String!
 }
 type Login {
+    id: Int!
     username: String!
-    id: number!
     token: String!
     exp: String!
 }
