@@ -4,17 +4,17 @@ type Perfil {
     idUsuario: String!
     nombre: String!
     idImagenPerfil: String!
-    texto: String!
-    numfollows : Int!
-    numfollowers : Int!
+    texto: String
+    numfollowBy : Int
+    numfollowers : Int
 }
 input PerfilInput {
     idUsuario: String!
     nombre: String!
     idImagenPerfil: String!
-    texto: String!
-    numfollows : Int!
-    numfollowers : Int!
+    texto: String
+    numfollowBy : Int
+    numfollowers : Int
 }
 type Follows {
     id: Int!
@@ -43,9 +43,8 @@ getAllFollowById(idFollow: String!): Follows!
 
 export const profileMutations = `
 createPerfil(perfil: PerfilInput!): Perfil!
-putPerfil(id: Int!,perfil: PerfilInput!):Perfil!
+updatePerfil(id: Int!,perfil: PerfilInput!):Perfil!
 deletePerfil(id: Int!): Perfil!
-
 createFollow(follow : FollowsInput!): Follows!
 deleteFollows(id: Int!): Follows!
 `
