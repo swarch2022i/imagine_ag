@@ -18,6 +18,7 @@ input UserInputUpdate {
     actual_password: String!
 }
 type Login {
+    id: Int!
     username: String!
     token: String!
     exp: String!

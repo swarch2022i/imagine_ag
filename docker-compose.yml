@@ -33,7 +33,6 @@ services:
             - network_ms
             - profile_ms
             - web
-        hostname: apigateway
     rabbitmq:
         image: rabbitmq:3-management
         ports:
@@ -121,8 +120,6 @@ services:
         depends_on:
             - collections_db
             - rabbitmq
-        networks:
-        data_bases:
         ports:
             - "8000:8000"
         environment:
@@ -137,7 +134,4 @@ services:
         restart: on-failure
         environment:
             - NEO4J_AUTH=neo4j/test
-    #        networks:
-    #        data_bases:
-    #     ipv4_address: 172.16.0.2
         hostname: collections_db
