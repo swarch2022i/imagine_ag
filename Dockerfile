@@ -8,7 +8,9 @@ COPY package.json /image_ag/
 RUN npm install
 
 # Bundle app source
-COPY . /swarch2022i_ag/
+COPY . /image_ag/
 RUN npm run prepublish
+
+EXPOSE 5000
 
 CMD [ "npm", "run", "runServer" ]

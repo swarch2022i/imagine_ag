@@ -1,6 +1,18 @@
 version: "3.9"
 
 services:
+    imagine_wa:
+        image: nisanchezva/imagine_wa
+        restart: on-failure
+        ports:
+            - "4500:4500"
+        environment:
+            - API_GATEWAY_URL=imagesms:5000
+            - STORAGE_MS_URL=storagems:1234
+
+        depends_on:
+            - api_gateway
+
     api_gateway:
         build: .
         restart: on-failure
@@ -15,48 +27,49 @@ services:
             - PROFILE_MS_URL=profilems:80
             - AUTH_MS_URL=web:3000
         depends_on:
-            # - storage_ms
-             - images_ms
-            # - collections_ms
-            # - network_ms
-            # - profile_ms
-            #- web
+            - storage_ms
+            - images_ms
+            - collections_ms
+            - network_ms
+            - profile_ms
+            - web
+        hostname: apigateway
     rabbitmq:
         image: rabbitmq:3-management
         ports:
             - 5672:5672
             - 15672:15672
-    # storage_ms:
-    #     image: rhiino/imagine_storage_ms:v2
-    #     restart: on-failure
-    #     environment:
-    #         - GCS_BUCKET=arqui
-    #         - GCS_FILE=clean-framework-340802-d71f73f1694f.json
-    #         - GCS_PROJECT_ID=clean-framework-340802
-    #         - GCS_ENDPOINT=https://storage.googleapis.com/
-    #         - RABBITMQ_HOST=rabbitmq
-    #     ports:
-    #         - "1234:1234"
-    #     hostname: storagems
-    #     depends_on:
-    #         - rabbitmq
-    # ms-sql-server:
-    #     image: mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
-    #     environment:
-    #         ACCEPT_EULA: "Y"
-    #         SA_PASSWORD: "Pa##w0rd2020"
-    #         MSSQL_PID: Express
-    #     ports:
-    #         - "1433:1433"
-    # profile_ms:
-    #     image: demonmasks/imagine_profile_ms
-    #     restart: on-failure
-    #     environment:
-    #         - ASPNETCORE_ENVIRONMENT=Development
-    #         - ASPNETCORE_URLS=http://+:80
-    #     ports:
-    #         - "8081:80"
-    #     hostname: profilems
+    storage_ms:
+        image: rhiino/imagine_storage_ms:v2
+        restart: on-failure
+        environment:
+            - GCS_BUCKET=arqui
+            - GCS_FILE=clean-framework-340802-d71f73f1694f.json
+            - GCS_PROJECT_ID=clean-framework-340802
+            - GCS_ENDPOINT=https://storage.googleapis.com/
+            - RABBITMQ_HOST=rabbitmq
+        ports:
+            - "1234:1234"
+        hostname: storagems
+        depends_on:
+            - rabbitmq
+    ms-sql-server:
+        image: mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
+        environment:
+            ACCEPT_EULA: "Y"
+            SA_PASSWORD: "Pa##w0rd2020"
+            MSSQL_PID: Express
+        ports:
+            - "1433:1433"
+    profile_ms:
+        image: demonmasks/imagine_profile_ms
+        restart: on-failure
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=http://+:80
+        ports:
+            - "8081:80"
+        hostname: profilems
     db:
         image: postgres
 
@@ -71,12 +84,12 @@ services:
             - "3000:3000"
         depends_on:
             - db
-    # network_ms:
-    #     image: josteda99/imagine_network_ms
-    #     restart: on-failure
-    #     ports:
-    #         - "3123:3123"
-    #     hostname: networkms
+    network_ms:
+        image: josteda99/imagine_network_ms
+        restart: on-failure
+        ports:
+            - "3123:3123"
+        hostname: networkms
 
     images_db:
         image: mysql:5.7
@@ -84,6 +97,7 @@ services:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: imagine_images_db
             MYSQL_PASSWORD: root
+            MYSQL_USER: admin
         expose:
             - "3306"
 
@@ -101,29 +115,29 @@ services:
         depends_on:
             - images_db
         hostname: imagesms
-    # collections_ms:
-    #     image: lalopaex/imagine_collections_ms
-    #     restart: on-failure
-    #     depends_on:
-    #         - collections_db
-    #         - rabbitmq
-    #     networks:
-    #     data_bases:
-    #     ports:
-    #         - "8000:8000"
-    #     environment:
-    #         - NEO4J_BOLT_URL=collections_db:7687
-    #         - NEO4J_PASSWORD=test
-    #     hostname: collectionsms
-    # collections_db:
-    #     image: neo4j:latest
-    #     expose:
-    #         - "7687"
-    #         - "7474"
-    #     restart: on-failure
-    #     environment:
-    #         - NEO4J_AUTH=neo4j/test
+    collections_ms:
+        image: lalopaex/imagine_collections_ms
+        restart: on-failure
+        depends_on:
+            - collections_db
+            - rabbitmq
+        networks:
+        data_bases:
+        ports:
+            - "8000:8000"
+        environment:
+            - NEO4J_BOLT_URL=collections_db:7687
+            - NEO4J_PASSWORD=test
+        hostname: collectionsms
+    collections_db:
+        image: neo4j:latest
+        expose:
+            - "7687"
+            - "7474"
+        restart: on-failure
+        environment:
+            - NEO4J_AUTH=neo4j/test
     #        networks:
     #        data_bases:
     #     ipv4_address: 172.16.0.2
-    #     hostname: collections_db
+        hostname: collections_db
