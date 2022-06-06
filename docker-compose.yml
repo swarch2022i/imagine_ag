@@ -37,7 +37,7 @@ services:
         image: nisanchezva/imagine_wa
         restart: on-failure
         expose:
-            - "4500:4500"
+            - "4500"
         environment:
             - LETSENCRYPT_HOST
             - LETSENCRYPT_HOST=imagine-swarch.duckdns.org
@@ -52,7 +52,7 @@ services:
         image: nisanchezva/gateway
         restart: on-failure
         expose:
-            - "5000:5000"
+            - "5000"
         environment:
             - COLLECTIONS_MS_URL=collections-ms:8000
             - COMMENTS_MS_URL=network-ms:3123
@@ -96,7 +96,7 @@ services:
             SA_PASSWORD: "Pa##w0rd2020"
             MSSQL_PID: Express
         expose:
-            - "1433:1433"
+            - "1433"
 
     profile-ms:
         image: demonmasks/imagine_profile_ms
@@ -105,7 +105,7 @@ services:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_URLS=http://+:80
         expose:
-            - "8081:80"
+            - "80"
         depends_on:
             - ms-sql-server
 
@@ -120,7 +120,7 @@ services:
         image: dacperezce/imagine_auth_ms:v1
         command: bash -c "rm -f tmp/pids/server.pid && ls && bundle exec rails s -p 3000 -b '0.0.0.0'"
         expose:
-            - "3000:3000"
+            - "3000"
         depends_on:
             - auth-db
 
@@ -128,7 +128,7 @@ services:
         image: josteda99/imagine_network_ms
         restart: on-failure
         expose:
-            - "3123:3123"
+            - "3123"
 
     images-db:
         image: mysql:5.7
@@ -144,7 +144,7 @@ services:
         image: nisanchezva/imagine_images_ms
         restart: on-failure
         expose:
-            - "8080:8080"
+            - "8080"
         environment:
             SPRING_DATASOURCE_URL: jdbc:mysql://images-db:3306/imagine_images_db?autoReconnect=true&useSSL=false
             SPRING_DATASOURCE_USERNAME: "root"
@@ -158,7 +158,7 @@ services:
         image: lalopaex/imagine_collections_ms
         restart: on-failure
         expose:
-            - "8000:8000"
+            - "8000"
         environment:
             - NEO4J_BOLT_URL=collections-db:7687
             - NEO4J_PASSWORD=test
