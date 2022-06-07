@@ -1,12 +1,12 @@
 export const categoryTypeDef = `
-  type Category {
-      id: Int!
-      name: String!
-  }
-  input CategoryInput {
-      name: String!
-      description: String!
-  }`;
+type Category {
+    id: Int!
+    name: String!
+}
+input CategoryInput {
+    name: String!
+    description: String!
+}`;
 
 export const categoryQueries = `
       allCategories: [Category]!
@@ -14,7 +14,7 @@ export const categoryQueries = `
   `;
 
 export const categoryMutations = `
-    createCategory(category: CategoryInput!): Category!
+    create(category: CategoryInput!): Category!
     updateCategory(id: Int!, category: CategoryInput!): Category!
     deleteCategory(id: Int!): Int
 `;
