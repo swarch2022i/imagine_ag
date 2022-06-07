@@ -62,7 +62,7 @@ services:
             - api-gateway
 
     api-gateway:
-        image: nisanchezva/gateway
+        image: nisanchezva/api_gateway
         restart: on-failure
         expose:
             - "5000"
