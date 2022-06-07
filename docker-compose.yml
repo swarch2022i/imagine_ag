@@ -29,17 +29,30 @@ services:
         restart: unless-stopped
         environment:
             - TZ=America/Bogota
-            - SUBDOMAINS=imagine-swarch
+            - SUBDOMAINS=imagine-swarch,soap-imagine
             - TOKEN=fcbc2ad6-edc2-4bc5-845f-cc90a8523dcd
             - LOG_FILE=false
-            
+    
+    imagine-interface:
+        image: nisanchezva/imagine_interface
+        restart: on-failure
+        environment:
+            - GRAPHQL_CLIENT_URL=http://api-gateway:5000/graphql
+            - SERVER_PORT=1111
+            - VIRTUAL_HOST=soap-imagine.duckdns.org
+            - LETSENCRYPT_HOST=soap-imagine.duckdns.org
+            - VIRTUAL_PORT=1111
+        expose:
+            - "1111"
+        depends_on:
+            - api-gateway
+
     imagine-wa:
         image: nisanchezva/imagine_wa
         restart: on-failure
         expose:
             - "4500"
         environment:
-            - LETSENCRYPT_HOST
             - LETSENCRYPT_HOST=imagine-swarch.duckdns.org
             - API_GATEWAY_URL=images-ms:5000
             - STORAGE_MS_URL=storage-ms:1234
