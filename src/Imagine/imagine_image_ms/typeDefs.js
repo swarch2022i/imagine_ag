@@ -3,7 +3,7 @@ export const imageTypeDef = `
       id: String!
       name: String
       description: String
-      tag: [String]
+      tags: [String]
       ownerId: String!
       commentsId: [String]
       imageStorageId: String!
@@ -12,7 +12,7 @@ export const imageTypeDef = `
   input ImageInput {
       name: String
       description: String
-      tag: [String]
+      tags: [String]
       ownerId: String!
       commentsId: [String]
       imageStorageId: String!
